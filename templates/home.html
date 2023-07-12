@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Home</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/home.css') }}">
+{% endblock %}
+{% block body %}
+<h1>Book Management System</h1>
+<h2>Enter Book Details</h2>
+<form method="POST" action="{{ url_for('submit') }}" id="book-form">
+    <input type="hidden" name="flag" value="C">
+    <label for="name">Name:</label> <input type="text" name="name" id="name">
+    <br>
+    <br>
+    <label for="genre">Genre:</label> <input type="text" name="genre" id="genre">
+    <br>
+    <br>
+    <label for="subgenre">Subgenre:</label> <input type="text" name="subgenre" id="subgenre">
+    <br>
+    <br>
+    <label for="price">Price:</label> <input type="number" name="price" id="price">
+    <br>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+
+<!-- Add h3 element for error message -->
+<h3 id="error-message"></h3>
+
+<a href="{{ url_for('books') }}">View all books</a>
+
+<script src="{{ url_for('static',filename='js/validate.js') }}"></script>
+{% endblock%}

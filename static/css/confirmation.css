@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #FC354C,#0ABFBC);
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+.links {
+    /* Center links */
+    text-align: center;
+    font-weight: bolder;
+}
+
+.links a {
+    /* Add space between links */
+    margin: 0 10px;
+}

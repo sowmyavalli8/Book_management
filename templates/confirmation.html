@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Confirmation</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/confirmation.css') }}">
+{% endblock %}
+{% block body %}
+{% if flag=="C" %}
+    <h1>Book Created</h1>
+{% elif flag=="D" %}
+    <h1>Book Deleted</h1>
+{% elif flag=="U" %}
+    <h1>Book Updated</h1>
+{% endif %}
+<div class="links">
+    <a href="{{ url_for('books') }}">View all books</a> 
+    <a href="{{ url_for('home') }}">Go to home page</a>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Books</title>
+<link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
+{% endblock %}
+{% block body %}
+<h1>Books</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Genre</th>
+        <th>Subgenre</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{ book.id }}</td>
+        <td>{{ book.name }}</td>
+        <td>{{ book.genre }}</td>
+        <td>{{ book.subgenre }}</td>
+        <td>{{ book.price }}</td>
+        <td>
+            <a href="{{ url_for('delete_book', book_id=book.id) }}" class="delete-button">DELETE</a>
+            <a href="{{ url_for('update_book', book_id=book.id) }}" class="update-button">UPDATE</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<a href="{{ url_for('home') }}" id="home-link">Go to home page</a>
+{% endblock%}

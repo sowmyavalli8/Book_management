@@ -1,0 +1,61 @@
+choco install eksctl --> install eksctl
+choco install kubernetes-cli --> install kubectl
+msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi --> install aws
+aws configure --> configure aws IAM user or root user using access keys
+eksctl create cluster --nodes 3 --nodegroup-name linux-nodes --node-type t2.micro --name emp-mgmt-flask --> deploy cluster on eks
+kubectl apply -f emp-mgmt.yaml --> Apply the config file
+kubectl get service emp-mgmt --> Get the external IP of service 
+https://a1e1e1d3c70534873b3c80ae1189862d-1904736435.ap-south-1.elb.amazonaws.com --> Open application
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emp-mgmt
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: emp-mgmt
+  template:
+    metadata:
+      labels:
+        app: emp-mgmt
+    spec:
+      containers:
+      - name: emp-mgmt
+        image: "h4ck3rd33p/employee-management-flask-app"
+        ports:
+        - containerPort: 10000
+        env:
+        - name: NAME
+          value: "World"
+        - name: DATABASE_URL
+          value: "sqlite:////app/instance/employee.db"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: emp-mgmt
+spec:
+  type: LoadBalancer
+  selector:
+    app: emp-mgmt
+  ports:
+  - port: 80
+    targetPort: 10000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: emp-mgmt-ingress
+spec:
+  rules:
+  - host: employeelovescode.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: emp-mgmt
+            port:
+              number: 10000
